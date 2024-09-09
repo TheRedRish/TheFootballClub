@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class UserInterface {
     public static void run(MyLinkedList myLinkedList) {
@@ -20,8 +21,10 @@ public class UserInterface {
                     removePlayer(myLinkedList);
                     break;
                 case 3:
+                    listPlayers(myLinkedList);
                     break;
                 case 4:
+                    searchPlayers(myLinkedList);
                     break;
                 case 5:
                     break;
@@ -55,7 +58,41 @@ public class UserInterface {
     }
 
     public static void listPlayers(MyLinkedList myLinkedList) {
+        // Create comparators for different fields
+        Comparator<MemberPlayer> compareByFirstName = Comparator.comparing(p -> p.firstName);
+        Comparator<MemberPlayer> compareByLastName = Comparator.comparing(p -> p.lastName);
+        Comparator<MemberPlayer> compareByAge = Comparator.comparingInt(p -> p.age);
+        Comparator<MemberPlayer> compareByDivision = Comparator.comparingInt(p -> p.teamDivision);
 
+        System.out.println("1. Sort by first name");
+        System.out.println("2. Sort by last name");
+        System.out.println("3. Sort by age");
+        System.out.println("4. Sort by team division");
+        int choice = UserInputUtil.getIntInput("Enter your choice: ", "Invalid choice!", 1, 4);
+
+        Comparator<MemberPlayer> chosenComparator;
+
+        switch (choice) {
+            case 1:
+                chosenComparator = compareByFirstName;
+                break;
+            case 2:
+                chosenComparator = compareByLastName;
+                break;
+            case 3:
+                chosenComparator = compareByAge;
+                break;
+            case 4:
+                chosenComparator = compareByDivision;
+                break;
+            default:
+                System.out.println("Invalid choice. Sorting by first name as default.");
+                chosenComparator = compareByFirstName;
+        }
+
+        for (MemberPlayer player : myLinkedList.sort(chosenComparator)) {
+            System.out.println(player);
+        }
     }
 
     public static void searchPlayers(MyLinkedList myLinkedList) {

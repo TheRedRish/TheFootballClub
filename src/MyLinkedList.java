@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.TreeSet;
 
 public class MyLinkedList {
@@ -108,8 +109,8 @@ public class MyLinkedList {
         return players;
     }
 
-    public TreeSet<MemberPlayer> sort() {
-        TreeSet<MemberPlayer> treeSet = new TreeSet<>();
+    public TreeSet<MemberPlayer> sort(Comparator<MemberPlayer> chosenComparator) {
+        TreeSet<MemberPlayer> treeSet = new TreeSet<>(chosenComparator);
         Node current = head;
         while (current != null) {
             treeSet.add(current.data);
@@ -117,5 +118,16 @@ public class MyLinkedList {
         }
 
         return treeSet;
+    }
+
+    public String toPrintString() {
+        StringBuilder sb = new StringBuilder();
+        Node current = head;
+        while (current != null) {
+            sb.append(current.data.toPrintString());
+            sb.append("\n");
+            current = current.next;
+        }
+        return sb.toString();
     }
 }
