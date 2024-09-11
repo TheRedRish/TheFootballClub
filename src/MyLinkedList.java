@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.TreeSet;
+import java.util.*;
 
 public class MyLinkedList {
     Node head;
@@ -109,15 +107,15 @@ public class MyLinkedList {
         return players;
     }
 
-    public TreeSet<MemberPlayer> sort(Comparator<MemberPlayer> chosenComparator) {
-        TreeSet<MemberPlayer> treeSet = new TreeSet<>(chosenComparator);
+    public List<MemberPlayer> sort(Comparator<MemberPlayer> chosenComparator) {
+        List<MemberPlayer> arrayList = new ArrayList<>();
         Node current = head;
         while (current != null) {
-            treeSet.add(current.data);
+            arrayList.add(current.data);
             current = current.next;
         }
-
-        return treeSet;
+        Collections.sort(arrayList, chosenComparator);
+        return arrayList;
     }
 
     public String toPrintString() {
